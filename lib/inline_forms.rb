@@ -153,7 +153,7 @@ module InlineForms
     end
 
     initializer "inline_forms.assets.precompile" do |app|
-      app.config.assets.precompile += %w( inline_forms/inline_forms.scss )
+      app.config.assets.precompile += %w( inline_forms/inline_forms.scss inline_forms/devise.css )
     end
 
     I18n.load_path << Dir[File.join(File.expand_path(File.dirname(__FILE__) + '/locales'), '*.yml')]
