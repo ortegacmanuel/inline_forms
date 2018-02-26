@@ -1,55 +1,38 @@
-<% @flash = flash %>
-<%= render 'top-bar-and-flash' %>
-
 <div class="row" id='inline_forms_devise_header_row'>
-  <div class="small-11 centered column">
+  <div class="col-sm-11 centered">
     <h1><%= t('inline_forms.devise.passwords.forgot_your_password') %></h1>
   </div>
 </div>
 
 <div id='inline_forms_devise_container' class="row">
 
-  <div id='inline_forms_devise_form_column' class="large-5 columns">
+  <div id='inline_forms_devise_form_column' class="col-lg-5">
+    <div class="text-center">
+      <%= form_for(resource,  as:   resource_name,
+        url:  password_path(resource_name),
+        html: { method: :post,
+          id: 'inline_forms_devise_form',
+          class: 'form-signin'
+        }
+      ) do |f| %>
 
-    <%= form_for(resource,  as:   resource_name,
-                            url:  password_path(resource_name),
-                            html: { method: :post,
-                                    id: 'inline_forms_devise_form'
-                                  }
-                ) do |f| %>
+        <h2 class="h4 mb-3 font-weight-normal">Please enter your email</h2>
+        <%= devise_error_messages! %>
 
-      <%= devise_error_messages! %>
+        <label class="sr-only"><%= t :email %></label>
+        <%= f.email_field :email, class: "form-control", placeholder: "Email address" %>
 
-      <div class="row">
-        <div class="columns">
-          <label><%= t :email %></label>
-          <%= f.email_field :email %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="columns text-right">
-          <%= f.submit t('inline_forms.devise.passwords.send_me_instructions'), class: 'button' %>
-        </div>
-      </div>
-
-    <% end %>
-
+        <%= f.submit t('inline_forms.devise.passwords.send_me_instructions'), class: 'btn btn-lg btn-primary btn-block' %>
+      <% end %>
+    </div>
   </div>
 
-  <div id='inline_forms_devise_content_column' class="large-7 columns">
-
+  <div id='inline_forms_devise_content_column' class="col-lg-7">
     <div class="hide-for-large-up row text-centered">
       <hr />
     </div>
-
     <div id='inline_forms_devise_content' class="row">
-      <%= render '/devise/inline_forms/content_for_passwords_new' %>
+        <%= render '/devise/inline_forms/content_for_passwords_new' %>
     </div>
-
   </div>
-
-
-
-
 </div>

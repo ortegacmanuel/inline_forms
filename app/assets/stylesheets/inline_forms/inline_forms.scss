@@ -1,9 +1,18 @@
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
 // inline_forms
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic);
-@import 'foundation-icons';
 @import 'themes/jquery.ui.sunny';
 @import 'jquery.ui.all';
+
+/*
+@import 'foundation-icons';
 @import 'foundation_and_overrides';
+*/
+
+body {
+  padding-top: 5rem;
+}
 
 .contain-to-grid {
   background-color: $body-bg !important;

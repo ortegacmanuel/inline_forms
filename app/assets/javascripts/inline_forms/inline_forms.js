@@ -3,9 +3,13 @@
 //= require jquery.ui.all
 //= require ckeditor/init
 //= require jquery.timepicker.js
-//= require foundation
 //= require jquery.remotipart
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
 
+/*
+require foundation
 $(function(){ $(document).foundation(); });
 // initialize datepickers
   $(document).ready(function() {
@@ -22,3 +26,4 @@ $(function(){ $(document).foundation(); });
       $(this).attr('title', '');
     });
   });
+*/

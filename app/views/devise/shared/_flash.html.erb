@@ -1,0 +1,21 @@
+<% @flash = flash %>
+<% if !flash.empty? %>
+  <div id='inline_forms_devise_flash_div' class='row justify-content-center'>
+    <!--
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}", :class => 'devise flash' %>
+    <% end %>
+    -->
+    <% if flash[:notice] %>
+      <div class="alert alert-info">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

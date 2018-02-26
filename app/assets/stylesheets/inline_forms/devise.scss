@@ -1,33 +1,23 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic);
-@import 'foundation_and_overrides';
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+
+// @import 'foundation_and_overrides';
 
 .contain-to-grid {
   background-color: $body-bg !important;
+}
+
+.navbar-custom {
+  background-color: #A3381E;
 }
 
 #inline_forms_devise_outer_container a {
   color: #A3381E;
 }
 
-#inline_forms_devise_top_nav_bar {
-  background-color: #A3381E;
-  a {
-    color: #FFFFFF;
-  }
-}
-
 #inline_forms_devise_flash_div {
-  border-top: 0.5em solid #fade7a;
-  .flash {
-    margin-top: 0.2em;
-    padding: 0.5em;
-    color: #A3381E;
-    font-size: 130%;
-    font-weight: bold;
-    line-height: 120%;
-    background-color: white;
-    border: none;
-  }
+  margin-top: 1em;
 }
 
 #inline_forms_devise_header_row{
@@ -41,31 +31,6 @@
 #inline_forms_devise_container {
   .row {
     margin-bottom: 30px;
-  }
-}
-
-#inline_forms_devise_form_column {
-}
-
-#inline_forms_devise_form {
-  label {
-    padding-bottom: 0.2em;
-    padding-left: 0.3em;
-  }
-  input[type=checkbox] {
-    position: relative;
-    top: 2px;
-  }
-  .lower {
-    top: 15px;
-  }
-  #error_explanation {
-    color: #A3381E;
-    h2 {
-      color: #A3381E;
-      font-size: 120%;
-      font-weight: bolder;
-    }
   }
 }
 
@@ -84,6 +49,44 @@
     color: #A3381E;
     font-weight: bolder;
   }
+}
 
+// bootstrap new
 
+body {
+  padding-top: 3rem;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.devise-links {
+  margin-top: 20px;
 }
