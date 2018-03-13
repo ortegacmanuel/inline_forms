@@ -9,45 +9,45 @@
     :abide => true,
     :remote => true do -%>
   <% if @BUTTONS_UNDER.include? @form_element %>
-    <div class="row collapse">
-      <div class="small-12 columns">
+    <div class="row">
+      <div class="col-sd-12">
         <%= send("#{@form_element}_edit", @object, @attribute) %>
       </div>
     </div>
-    <div class="row collapse">
-      <div class="small-9 columns">
+    <div class="row">
+      <div class="col-sd-9">
         &nbsp;
       </div>
-      <div class="small-1 columns">
-        <%= submit_tag "ok", :class => "postfix button"-%>
+      <div class="col-sd-1">
+        <%= submit_tag "ok", :class => "btn btn-primary"-%>
       </div>
-      <div class="small-2 columns">
+      <div class="col-sd-1">
         <%= link_to( send( @object.class.to_s.underscore + '_path', :update => @update_span || "field_#{@attribute}_#{@object.id.to_s}",
         :attribute => @attribute,
         :form_element => @form_element,
         :sub_id => @sub_id ),
         :method => :get, # this is going to the show method!
         :remote => true ) do %>
-          <input type="button" name="cancel" value="cancel" class="button alert postfix radius" />
+          <input type="button" name="cancel" value="cancel" class="btn btn-warning" />
         <% end %>
       </div>
     </div>
   <% else %>
-    <div class="row collapse">
-      <div class="small-9 columns">
+    <div class="row">
+      <div class="col-sd-9">
         <%= send("#{@form_element}_edit", @object, @attribute) %>
       </div>
-      <div class="small-1 columns">
-        <%= submit_tag "ok", :class => "postfix button"-%>
+      <div class="col-sd-1">
+        <%= submit_tag "ok", :class => "btn btn-primary"-%>
       </div>
-      <div class="small-2 columns">
+      <div class="col-sd-2">
         <%= link_to( send( @object.class.to_s.underscore + '_path', :update => @update_span || "field_#{@attribute}_#{@object.id.to_s}",
         :attribute => @attribute,
         :form_element => @form_element,
         :sub_id => @sub_id ),
         :method => :get, # this is going to the show method!
         :remote => true ) do %>
-          <input type="button" name="cancel" value="cancel" class="button alert postfix radius" />
+          <input type="button" name="cancel" value="cancel" class="btn btn-warning" />
         <% end %>
       </div>
     </div>

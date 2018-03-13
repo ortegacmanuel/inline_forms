@@ -1,47 +1,48 @@
-<div class="contain-to-grid fixed">
-  <nav id='inline_forms_application_top_bar' class="top-bar" data-topbar>
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/"><%= application_name %> v<%= inline_forms_version %> <%= current_user.name %></a></h1>
-      </li>
-      <li class="toggle-topbar menu-icon">
-        <a href="#"><span></span></a>
-      </li>
-    </ul>
-    <section class="top-bar-section">
-      <ul class="right">
-        <% if current_user.role?(:superadmin) && Rails.env.development? %>
-          <li class="has-dropdown">
-            <%= switch_user_select %>
-          </li>
-        <% end %>
-        <% if current_user.role?(:admin) || current_user.role?(:superadmin) %>
-          <li class="has-dropdown">
-            <a href="#"><%= t 'common.more' %></a>
-            <ul class="dropdown">
-              <% MODEL_TABS.each do |m| %>
-                <% model = m.singularize.camelcase.constantize rescue nil %>
-                  <% unless model.nil? || model.not_accessible_through_html? %>
-                  <% if can? :update, m.to_sym %>
-                    <li>
-                      <%= link_to model.model_name.human, '/' +  m %>
-                    </li>
+<header class="header">
+    <div class="header-block header-block-collapse d-lg-none d-xl-none">
+        <button class="collapse-btn" id="sidebar-collapse-btn">
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <div class="header-block header-block-search">
+      <%= application_name %> v<%= inline_forms_version %> <%= current_user.name %>
+    </div>
+    <div class="header-block header-block-buttons">
+    </div>
+    <div class="header-block header-block-nav">
+        <ul class="nav-profile">
+
+          <% if current_user.role?(:superadmin) && Rails.env.development? %>
+            <li class="nav-item dropdown">
+              <%= switch_user_select class: 'form-control' %>
+            </li>
+          <% end %>
+
+          <% if current_user.role?(:admin) || current_user.role?(:superadmin) %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= t 'common.more' %></a>
+              <div class="dropdown-menu" aria-labelledby="dropdown03">
+                <% MODEL_TABS.each do |m| %>
+                  <% model = m.singularize.camelcase.constantize rescue nil %>
+                    <% unless model.nil? || model.not_accessible_through_html? %>
+                    <% if can? :update, m.to_sym %>
+                      <%= link_to model.model_name.human, '/' +  m, class: 'dropdown-item' %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-        <li class="has-dropdown">
-          <a href="#"><%= current_user.name %></a>
-          <ul class="dropdown">
-            <li>
-              <%= link_to( t("common.logout"), destroy_user_session_path, :method => :delete) if current_user  %>
+              </div>
             </li>
-          </ul>
-        </li>
-      </ul>
-    </section>
+          <% end %>
 
-  </nav>
-</div>
+            <li class="profile dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="img" style="background-image: url('https://avatars3.githubusercontent.com/u/3959008?v=3&s=40')"> </div>
+                    <span class="name"><%= current_user.name %></span>
+                </a>
+                <div class="dropdown-menu profile-dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <%= link_to( t("common.logout"), destroy_user_session_path, :method => :delete, class: 'dropdown-item') if current_user  %>
+                </div>
+            </li>
+        </ul>
+    </div>
+</header>

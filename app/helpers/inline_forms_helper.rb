@@ -20,7 +20,7 @@ module InlineFormsHelper
 
   # close link
   def close_link( object, update_span, html_class = 'button close_button' )
-    link_to "<i class='fi-x'></i>".html_safe,
+    link_to octicon("x"),
       send( object.class.to_s.underscore + '_path',
       object,
       :update => update_span,
@@ -34,7 +34,7 @@ module InlineFormsHelper
   def link_to_destroy( object, update_span )
     if current_user.role? :superadmin
       if cancan_disabled? || ( can? :delete, object )
-        link_to "<i class='fi-trash'></i>".html_safe,
+        link_to octicon("trashcan"),
           send( object.class.to_s.underscore + '_path',
           object,
           :update => update_span ),
@@ -65,7 +65,7 @@ module InlineFormsHelper
 
   # new link
   def link_to_new_record(model, path_to_new, update_span, parent_class = nil, parent_id = nil, html_class = 'button new_button')
-    out = (link_to "<i class='fi-plus'></i>".html_safe,
+    out = (link_to octicon("plus"),
                    send(path_to_new,
                         :update => update_span,
                         :parent_class => parent_class,
@@ -90,7 +90,7 @@ module InlineFormsHelper
 
   # link to versions list
   def link_to_versions_list(path_to_versions_list, object, update_span, html_class = 'button new_button')
-    out = (link_to "<i class='fi-list'></i>".html_safe,
+    out = (link_to octicon("three-bars"),
                    send(path_to_versions_list,
                         object,
                         :update => update_span,
@@ -106,7 +106,7 @@ module InlineFormsHelper
 
   # close versions list link
   def close_versions_list_link(object, update_span, html_class = 'button close_button' )
-    link_to "<i class='fi-x'></i>".html_safe,
+    link_to octicon("x"),
       send('list_versions_' + @object.class.to_s.underscore + "_path",
           object,
           :update => update_span,
@@ -120,8 +120,8 @@ module InlineFormsHelper
   # link_to_inline_edit
   def link_to_inline_edit(object, attribute, attribute_value='')
     attribute_value = attribute_value.to_s
-    spaces = attribute_value.length > 40 ? 0 : 40 - attribute_value.length
-    value = h(attribute_value) + ("&nbsp;" * spaces).html_safe
+    #spaces = attribute_value.length > 40 ? 0 : 40 - attribute_value.length
+    value = h(attribute_value) # + ("&nbsp;" * spaces).html_safe
     css_class_id = "#{object.class.to_s.underscore}_#{object.id}_#{attribute}"
     if cancan_disabled? || ( can? :update, object, attribute )
       link_to value,

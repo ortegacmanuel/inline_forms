@@ -1,32 +1,30 @@
 <div class="row">
   <% if (INLINE_FORMS_SHOW_INDENT rescue true) %>
-    <div class='medium-1 large-1 column'>
+    <div class='col-md-1 col-lg-1'>
       &nbsp;
     </div>
-    <div class='small-11 column'>
+    <div class='col-sm-11'>
   <% else %>
-    <div class='small-12 column'>
+    <div class='col-sm-12'>
   <% end %>
     <% unless @skip %>
-    <div class="row object_presentation">
-      <div class="small-11 column object_presentation">
-        <%= h(@object._presentation) -%>
+    <div class="card card-info mt-2 pr-1">
+      <div class="card card-header">
+        <div class="col-sm-11">
+          <h4><%= h(@object._presentation) -%></h4>
+        </div>
+        <div class="col-sm-1 text-right mr-1" >
+          <%= close_link(@object, @update_span) -%>
+        </div>
       </div>
-      <div class="small-1 column close_link" >
-        <%= close_link(@object, @update_span) -%>
-      </div>
-    </div>
     <% end %>
+    <div class="card-body">
     <% attributes = @inline_forms_attribute_list || @object.inline_forms_attribute_list -%>
     <% attributes.each do | attribute, name, form_element | -%>
       <% if cancan_disabled? || can?(:read, @object, attribute) %>
         <% css_class_id = "#{@object.class.name.underscore}_#{@object.id}_#{attribute}" -%>
         <% if form_element == :header %>
-          <div class="row form_element_header">
-            <div class='large-12 column' >
-              <%= @object.class.human_attribute_name(attribute) -%>
-            </div>
-          </div>
+          <h5 class="card-title"><%= @object.class.human_attribute_name(attribute) %></h5>
         <% else %>
           <% if form_element == :tree -%>
             <div class="row form_element_header associated_auto_header" id="<%= css_class_id -%>_list_auto_header" >
@@ -53,15 +51,10 @@
                 </div>
             </div>
           <% else %>
-            <% if form_element == :associated -%>
-      	      <div class="row form_element_header associated_auto_header" id="<%= css_class_id -%>_list_auto_header" >
-      	        <div class='medium-11 large-11 column' >
-      	          <%= @object.class.human_attribute_name(attribute) -%>
-      	        </div>
-      	        <div class='medium-1 large-1 column'>
-      	          <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{attribute.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
-      	        </div>
-      	      </div>
+            <% if form_element == :associated %>
+                <h5 class="card-title">
+                  <%= @object.class.human_attribute_name(attribute) %> <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{attribute.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
+                </h5>
       	      <div class="row <%= cycle('odd', 'even') %>">
                 <% if (INLINE_FORMS_ASSOCIATED_INDENT rescue true) %>
                   <div class='medium-1 large-1 column'>
@@ -93,21 +86,21 @@
                   </div>
                 </div>
               <% else %>
-                <div class="row <%= cycle('odd', 'even') %>">
-                  <div class='medium-5 large-5 column' >
-                    <% if @object.has_validations_for?(attribute) -%>
-                      <span data-tooltip class="has-tip tip-top" title="<%= validation_hints_as_list_for(@object, attribute).html_safe -%>">
+                <div class="form-group row">
+                    <label class="col-sm-2 form-control-label text-xs-right">
+                      <% if @object.has_validations_for?(attribute) -%>
+                        <span data-tooltip class="has-tip tip-top" title="<%= validation_hints_as_list_for(@object, attribute).html_safe -%>">
+                          <%= @object.class.human_attribute_name(attribute) -%>
+                        </span>
+                      <% else %>
                         <%= @object.class.human_attribute_name(attribute) -%>
+                      <% end %>
+                    </label>
+                    <div class="col-sm-10">
+                      <span id="<%= css_class_id -%>" >
+                        <%= send("#{form_element}_show", @object, attribute)%>
                       </span>
-                    <% else %>
-                      <%= @object.class.human_attribute_name(attribute) -%>
-                    <% end %>
-                  </div>
-                  <div class='medium-7 large-7 column' >
-                    <span id="<%= css_class_id -%>" >
-                      <%= send("#{form_element}_show", @object, attribute) -%>
-                    </span>
-                  </div>
+                    </div>
                 </div>
               <% end %>
             <% end %>
@@ -121,6 +114,7 @@
         <%= render 'versions' %>
       </div>
     <% end %>
+    </div>
     <div class="record_footer"></div>
   </div>
 </div>
