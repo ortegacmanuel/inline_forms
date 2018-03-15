@@ -212,6 +212,9 @@ module InlineFormsHelper
     user.nil? ? 'Unknown' : user.name
   end
 
+  def gravatar_helper user
+    "https://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(user.email)}"
+  end
 end
 
 module Kernel
