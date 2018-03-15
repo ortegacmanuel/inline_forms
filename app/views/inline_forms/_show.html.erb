@@ -13,7 +13,7 @@
         <%= h(@object._presentation) -%>
       </div>
       <div class="small-1 column close_link" >
-        <%= close_link(@object, @update_span) -%>
+        <%= close_link(base_path, @object, @update_span) -%>
       </div>
     </div>
     <% end %>
@@ -34,7 +34,7 @@
                 Children
               </div>
               <div class='medium-1 large-1 column'>
-                  <%= link_to_new_record(@object.class, "new_#{@object.class.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
+                  <%= link_to_new_record(@object.class, "new_#{base_path}", css_class_id, @object.class, @object.id) -%>
               </div>
             </div>
             <div class="row <%= cycle('odd', 'even') %>">
@@ -59,7 +59,7 @@
       	          <%= @object.class.human_attribute_name(attribute) -%>
       	        </div>
       	        <div class='medium-1 large-1 column'>
-      	          <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{attribute.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
+      	          <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{base_path}", css_class_id, @object.class, @object.id) -%>
       	        </div>
       	      </div>
       	      <div class="row <%= cycle('odd', 'even') %>">

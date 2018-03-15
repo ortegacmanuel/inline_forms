@@ -243,6 +243,15 @@ class InlineFormsController < ApplicationController
     @Klass
   end
 
+  def base_path
+      path = []
+      path << self.class.to_s.split('::').first.underscore
+      path << self.controller_name.singularize
+      path << 'path'
+      path.join('_')
+  end
+  helper_method :base_path
+
   def referenced_object
     @Klass.find(object_id_params)
   end

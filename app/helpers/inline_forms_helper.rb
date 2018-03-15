@@ -19,9 +19,9 @@ module InlineFormsHelper
   end
 
   # close link
-  def close_link( object, update_span, html_class = 'button close_button' )
+  def close_link( path, object, update_span, html_class = 'button close_button' )
     link_to "<i class='fi-x'></i>".html_safe,
-      send( object.class.to_s.underscore + '_path',
+      send( path,
       object,
       :update => update_span,
       :close => true ),
@@ -31,11 +31,11 @@ module InlineFormsHelper
   end
 
   # destroy link
-  def link_to_destroy( object, update_span )
+  def link_to_destroy( path, object, update_span )
     if current_user.role? :superadmin
       if cancan_disabled? || ( can? :delete, object )
         link_to "<i class='fi-trash'></i>".html_safe,
-          send( object.class.to_s.underscore + '_path',
+          send( path,
           object,
           :update => update_span ),
           :method => :delete,
