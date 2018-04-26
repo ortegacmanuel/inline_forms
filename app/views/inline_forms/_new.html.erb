@@ -1,3 +1,4 @@
+<!--
 <div class="new_record"">
   <div id="flash" class="row">
     <% flash.each do |key, value| %>
@@ -10,55 +11,59 @@
       </div>
     <% end %>
   </div>
+-->
+<div class="row" >
+  <div class='col-sm-12 object_presentation'>
+    <div class="card card-info mt-2 pr-1">
+      <div class="card card-header">
+        <div class="col-sm-11">
+          <%= t('inline_forms.view.add_new', :model => @Klass.model_name.human ) -%>
+        </div>
+      </div>
+      <div class="card-body">
 
-  <div class="row" >
-    <div class="large-12 column object_presentation" >
-      <%= t('inline_forms.view.add_new', :model => @Klass.model_name.human ) -%>
-    </div>
-  </div>
-
-  <%= form_tag  send(@Klass.to_s.underscore.pluralize + '_path',  :update => @update_span,
-                                                                  :parent_class => @parent_class,
-                                                                  :parent_id => @parent_id ),
-                                                                  :multipart => true, :remote => true, :class  => "edit_form" do -%>
-    <% attributes = @inline_forms_attribute_list || @object.inline_forms_attribute_list -%>
-    <% attributes.each do | attribute, name, form_element | -%>
-      <% unless form_element.to_sym == :associated || form_element.to_sym == :tree || (cancan_enabled? && cannot?(:read, @Klass.to_s.underscore.pluralize.to_sym, attribute)) -%>
-        <% css_class_id = "attribute_#{attribute}_#{@object.id}" -%>
-        <% if form_element && form_element.to_sym == :header %>
-          <div class="row form_element_header" >
-            <div class='large-12 column<%= " attribute_name attribute_#{attribute} form_element_#{form_element}" -%>' >
-              <%= @object.human_attribute_name(attribute) -%>
-            </div>
-          </div>
-        <% else %>
-          <div class="row <%= cycle('odd', 'even') %>">
-            <div class='medium-5 large-5 column' >
-              <%= @object.human_attribute_name(attribute) -%>
-            </div>
-            <div class='medium-7 large-7 column' >
-              <span id="<%= css_class_id -%>" > <%= send("#{form_element}_edit", @object, attribute) -%> </span>
-            </div>
-          </div>
-        <% end -%>
-      <% end -%>
-    <% end -%>
-    <div class="row <%= cycle('odd', 'even') %>">
-                  <div class='medium-1 large-1 column'>
-                  &nbsp;
+        <%= form_tag  send(@Klass.to_s.underscore.pluralize + '_path',  :update => @update_span,
+                                                                        :parent_class => @parent_class,
+                                                                        :parent_id => @parent_id ),
+                                                                        :multipart => true, :remote => true, :class  => "edit_form" do -%>
+          <% attributes = @inline_forms_attribute_list || @object.inline_forms_attribute_list -%>
+          <% attributes.each do | attribute, name, form_element | -%>
+            <% unless form_element.to_sym == :associated || form_element.to_sym == :tree || (cancan_enabled? && cannot?(:read, @Klass.to_s.underscore.pluralize.to_sym, attribute)) -%>
+              <% css_class_id = "attribute_#{attribute}_#{@object.id}" -%>
+              <% if form_element && form_element.to_sym == :header %>
+                <h5 class="card-title">
+                  <div class='large-12 column<%= " attribute_name attribute_#{attribute} form_element_#{form_element}" -%>' >
+                    <%= @object.human_attribute_name(attribute) -%>
+                  </div>
+                </h5>
+              <% else %>
+                <div class="form-group row">
+                  <label class="col-sm-2 form-control-label text-xs-right">
+                    <%= @object.human_attribute_name(attribute) -%>
+                  </label>
+                  <div class="col-sm-10">
+                    <span id="<%= css_class_id -%>" > <%= send("#{form_element}_edit", @object, attribute) -%> </span>
+                  </div>
                 </div>
-    <div class='small-11  column' >
-        <%= link_to( send(@Klass.to_s.underscore.pluralize + '_path', :update => @update_span,
-                                                                      :parent_class => @parent_class,
-                                                                      :parent_id => @parent_id,
-                                                                      :ul_needed => true ),
-                                                                      :remote => true,
-                   ) do -%>
-          <input type="button" name="cancel" value="cancel" class="button alert" />
-        <% end %>
-        <%= submit_tag "ok", :class => "button "-%>
+              <% end -%>
+            <% end -%>
+          <% end -%>
+          <div class="form-group row">
+            <div class='col-sm-10 col-sm-offset-2'>
+              <%= link_to( send(@Klass.to_s.underscore.pluralize + '_path', :update => @update_span,
+                                                                            :parent_class => @parent_class,
+                                                                            :parent_id => @parent_id,
+                                                                            :ul_needed => true ),
+                                                                            :remote => true,
+                         ) do -%>
+                <input type="button" name="cancel" value="cancel" class="btn btn-danger" />
+              <% end %>
+              <%= submit_tag "ok", :class => "btn btn-primary"-%>
+            </div>
+          </div>
+          <div class="row record_footer"></div>
+       <% end %>
       </div>
     </div>
-    <div class="row record_footer"></div>
-  <% end %>
+  </div>
 </div>

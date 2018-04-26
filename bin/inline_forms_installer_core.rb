@@ -8,10 +8,9 @@ gem 'cancancan', '~> 2.0'
 gem 'carrierwave'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'coffee-rails'
-gem 'compass-rails'
 gem 'devise'
-gem 'foundation-icons-sass-rails'
-gem 'foundation-rails', '~> 5.5'
+gem 'bootstrap', '~> 4.0.0'
+gem 'octicons_helper'
 gem 'i18n-active_record', git: 'https://github.com/acesuares/i18n-active_record.git'
 gem 'inline_forms', '>=5'
 gem 'jquery-rails'
@@ -269,9 +268,6 @@ create_file "db/migrate/" +
 ROLES_MIGRATION
 
 append_to_file "db/seeds.rb", "Role.create({ id: 1, name: 'superadmin', description: 'Super Admin can access all.' })\n"
-
-say "- Installaing ZURB Foundation..."
-generate "foundation:install", "-f"
 
 say "- Copy inline_forms_devise file for custom styles..."
 copy_file File.join(GENERATOR_PATH, 'lib/generators/assets/stylesheets/inline_forms_devise.css'), 'app/assets/stylesheets/inline_forms_devise.css'
