@@ -236,9 +236,6 @@ create_file "app/models/user.rb", <<-USER_MODEL.strip_heredoc
   end
 USER_MODEL
 
-say "- Adding admin user with email: #{ENV['email']}, password: #{ENV['password']} to seeds.rb"
-append_to_file "db/seeds.rb", "User.create({ id: 1, email: '#{ENV['email']}', locale_id: 1, name: 'Admin', password: '#{ENV['password']}', password_confirmation: '#{ENV['password']}' })\n"
-
 # Create Locales
 say "- Create locales"
 generate "inline_forms", "Locale name:string title:string users:has_many _enabled:yes _presentation:\#{title}"
@@ -268,6 +265,9 @@ create_file "db/migrate/" +
 ROLES_MIGRATION
 
 append_to_file "db/seeds.rb", "Role.create({ id: 1, name: 'superadmin', description: 'Super Admin can access all.' })\n"
+
+say "- Adding admin user with email: #{ENV['email']}, password: #{ENV['password']} to seeds.rb"
+append_to_file "db/seeds.rb", "User.create({ id: 1, email: '#{ENV['email']}', locale_id: 1, name: 'Admin', password: '#{ENV['password']}', password_confirmation: '#{ENV['password']}' })\n"
 
 say "- Copy inline_forms_devise file for custom styles..."
 copy_file File.join(GENERATOR_PATH, 'lib/generators/assets/stylesheets/inline_forms_devise.css'), 'app/assets/stylesheets/inline_forms_devise.css'
@@ -330,10 +330,10 @@ create_file "config/locales/inline_forms_local.en.yml", <<-END_LOCALE.strip_here
 END_LOCALE
 
 say "- Migrating Database (only when using sqlite)"
-run "bundle exec rake db:migrate" if ENV['using_sqlite'] == 'true'
+run "bundle exec rails db:migrate" if ENV['using_sqlite'] == 'true'
 
 say "- Seeding the database (only when using sqlite)"
-run "bundle exec rake db:seed" if ENV['using_sqlite'] == 'true'
+run "bundle exec rails db:seed" if ENV['using_sqlite'] == 'true'
 
 say "- Recreating ApplicationHelper to set application_name and application_title..."
 remove_file "app/helpers/application_helper.rb" # the one that 'rails new' created
