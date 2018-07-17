@@ -13,7 +13,7 @@ def date_select_edit(object, attribute)
 end
 
 def date_select_update(object, attribute)
-  object[attribute.to_sym] = params[attribute.to_sym]
+  object[attribute.to_sym] = Date.parse(params[attribute.to_sym])
 end
 
 def date_select_info(object, attribute)

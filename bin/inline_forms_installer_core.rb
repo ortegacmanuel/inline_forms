@@ -34,6 +34,8 @@ gem 'validation_hints'
 gem 'will_paginate' #, git: 'https://github.com/acesuares/will_paginate.git'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+gem 'autoprefixer-rails', '~> 8.3', '>= 8.3.0.1'
+gem 'bootstrap-datepicker-rails'
 
 gem_group :development do
   gem 'bundler'
