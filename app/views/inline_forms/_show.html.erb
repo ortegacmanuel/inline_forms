@@ -24,7 +24,10 @@
       <% if cancan_disabled? || can?(:read, @object, attribute) %>
         <% css_class_id = "#{@object.class.name.underscore}_#{@object.id}_#{attribute}" -%>
         <% if form_element == :header %>
-          <h5 class="card-title"><%= @object.class.human_attribute_name(attribute) %></h5>
+          <div class="title-block">
+            <h3 class="title"><%= @object.class.human_attribute_name(attribute) %></h3>
+          </div>
+          <hr>
         <% else %>
           <% if form_element == :tree -%>
             <div class="row form_element_header associated_auto_header" id="<%= css_class_id -%>_list_auto_header" >
@@ -52,9 +55,12 @@
             </div>
           <% else %>
             <% if form_element == :associated %>
-                <h5 class="card-title">
-                  <%= @object.class.human_attribute_name(attribute) %> <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{attribute.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
-                </h5>
+                <div class="title-block">
+                  <h3 class="title">
+                    <%= @object.class.human_attribute_name(attribute) %> <%= link_to_new_record(attribute.to_s.singularize.camelcase.constantize, "new_#{attribute.to_s.underscore.singularize}_path", css_class_id, @object.class, @object.id) -%>
+                  </h3>
+                </div>
+                <hr>
       	         <div class="row">
                   <% if (INLINE_FORMS_ASSOCIATED_INDENT rescue true) %>
                     <div class='col-md-1 col-lg-1'>
